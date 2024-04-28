@@ -1,3 +1,8 @@
+import re
+import string
+
+from nltk.corpus import stopwords
+
 from nltk import word_tokenize, PorterStemmer, WordNetLemmatizer
 from nltk import pos_tag
 from nltk.corpus import wordnet
@@ -30,3 +35,13 @@ def lemmatization(tokens):
     pos_tags = pos_tag(tokens)
     lemmatizer = WordNetLemmatizer()
     return [lemmatizer.lemmatize(word, pos=get_wordnet_pos(tag)) for word, tag in pos_tags]
+
+
+def remove_punctuation(text):
+    return text.translate(str.maketrans('', '', string.punctuation))
+
+
+def remove_stopwords(text):
+    stop_words = set(stopwords.words('english'))
+    filtered_text = [word for word in text.split() if word.lower() not in stop_words]
+    return ' '.join(filtered_text)
