@@ -1,2 +1,6 @@
 /IR/Search/migrations/
 .idea
+IR/Offline/dataset1.db
+IR/Offline/dataset2.db
+IR/Offline/Testing Functions/.ipynb_checkpoints
+IR/Offline/.ipynb_checkpoints
