@@ -1,47 +1,48 @@
-import re
+from nltk.corpus import stopwords
+from autocorrect import Speller
+from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
 import string
 
-from nltk.corpus import stopwords
+def remove_punctuation(tokens):
+    translator = str.maketrans('', '', string.punctuation)
+    tokens_punctuated = [token.translate(translator) for token in tokens]
+    return tokens_punctuated
 
-from nltk import word_tokenize, PorterStemmer, WordNetLemmatizer
-from nltk import pos_tag
-from nltk.corpus import wordnet
-
-
-def stemmer(tokens):
-    stemmer = PorterStemmer()
-    return [stemmer.stem(word) for word in tokens]
-
-
-def tokenize(text):
-    return word_tokenize(text)
-
-
-def pos_tagging(tokens):
-    return pos_tag(tokens)
-
-
-def get_wordnet_pos(tag_parameter):
-    tag = tag_parameter[0].upper()
-    tag_dict = {"J": wordnet.ADJ,
-                "N": wordnet.NOUN,
-                "V": wordnet.VERB,
-                "R": wordnet.ADV}
-
-    return tag_dict.get(tag, wordnet.NOUN)
-
-
-def lemmatization(tokens):
-    pos_tags = pos_tag(tokens)
-    lemmatizer = WordNetLemmatizer()
-    return [lemmatizer.lemmatize(word, pos=get_wordnet_pos(tag)) for word, tag in pos_tags]
-
-
-def remove_punctuation(text):
-    return text.translate(str.maketrans('', '', string.punctuation))
-
-
-def remove_stopwords(text):
+def remove_stopwords(tokens):
     stop_words = set(stopwords.words('english'))
-    filtered_text = [word for word in text.split() if word.lower() not in stop_words]
-    return ' '.join(filtered_text)
+    filtered_tokens = [word for word in tokens if word not in stop_words]
+    return filtered_tokens
+
+
+spell = Speller(lang='en')
+def correct_sentence_spelling(tokens):
+    corrected_tokens = []
+    for token in tokens:
+        corrected_tokens.append(spell(token))
+    return corrected_tokens
+
+def stem(tokens):
+    stemmer = PorterStemmer()
+    stemmed_tokens = [stemmer.stem(word) for word in tokens]
+    return stemmed_tokens
+
+
+def lemmatize(tokens):
+    lemmatizer = WordNetLemmatizer()
+    lemmatized_tokens = [lemmatizer.lemmatize(word) for word in tokens]
+    return lemmatized_tokens
+
+
+def preprocessor(text):
+    tokens = word_tokenize(text)
+
+    unpunctuated_tokens = remove_punctuation(tokens)
+    no_stop_words_tokens = remove_stopwords(unpunctuated_tokens)
+    spell_checked_tokens = correct_sentence_spelling(no_stop_words_tokens)
+    stemmed_tokens = stem(spell_checked_tokens)
+    lemmatized_tokens = lemmatize(stemmed_tokens)
+    processed_text = ' '.join(lemmatized_tokens);
+
+    return processed_text
