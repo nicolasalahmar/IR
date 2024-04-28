@@ -43,6 +43,6 @@ def preprocessor(text):
     spell_checked_tokens = correct_sentence_spelling(no_stop_words_tokens)
     stemmed_tokens = stem(spell_checked_tokens)
     lemmatized_tokens = lemmatize(stemmed_tokens)
-    processed_text = ' '.join(lemmatized_tokens);
+    processed_text = ' '.join(lemmatized_tokens)
 
     return processed_text
