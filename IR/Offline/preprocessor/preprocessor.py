@@ -5,10 +5,12 @@ from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 import string
 
+
 def remove_punctuation(tokens):
     translator = str.maketrans('', '', string.punctuation)
     tokens_punctuated = [token.translate(translator) for token in tokens]
     return tokens_punctuated
+
 
 def remove_stopwords(tokens):
     stop_words = set(stopwords.words('english'))
@@ -17,11 +19,14 @@ def remove_stopwords(tokens):
 
 
 spell = Speller(lang='en')
+
+
 def correct_sentence_spelling(tokens):
     corrected_tokens = []
     for token in tokens:
         corrected_tokens.append(spell(token))
     return corrected_tokens
+
 
 def stem(tokens):
     stemmer = PorterStemmer()
