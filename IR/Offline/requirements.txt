@@ -1,0 +1,5 @@
+peewee~=3.17.3
+pandas~=1.5.3
+scikit-learn~=1.4.2
+nltk~=3.8.1
+autocorrect~=2.6.1

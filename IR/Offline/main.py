@@ -1,16 +1,12 @@
-import sqlite3
-
-from index.index import create_index
-
-
-def fetch_records(dataset, limit):  # todo remember you are not fetching the id of the document
-    sqliteConnection = sqlite3.connect(dataset)
-    cursor = sqliteConnection.cursor()
-    cursor.execute(f"""SELECT * FROM corpus LIMIT {limit};""")
-    records = cursor.fetchall()
-    sqliteConnection.close()
-    return records
+from Helper.ORM import fetch_records
+from Pipeline.index.index import create_index
+from datetime import datetime
 
 
-records = fetch_records('dataset1.db', 1)
-print(create_index(records))
+start = datetime.now()
+records = fetch_records('dataset1.db', 100)
+index = create_index(records)
+end = datetime.now()
+
+print(index)
+print(end-start)
