@@ -1,11 +1,37 @@
+import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 from Pipeline.preprocessor.preprocessor import preprocessor
 
 
-def create_index(corpus):
-    vectorizer = TfidfVectorizer(preprocessor=preprocessor)
-    documents = [record.text for record in corpus]
-    keys = [record.id for record in corpus]
-    tfidf_matrix = vectorizer.fit_transform(documents)
-    return pd.DataFrame(tfidf_matrix.toarray(), columns=vectorizer.get_feature_names_out(), index=keys)
+class Index:
+    def __init__(self, corpus=None):
+        self.corpus = corpus
+        self.vectorizer = TfidfVectorizer(preprocessor=preprocessor)
+        if corpus is not None:
+            self.documents, self.keys = self.DocsKeys()
+            self.tfidf_matrix = self.vectorizer.fit_transform(self.documents)
+        else:
+            pass
+
+    def DocsKeys(self):
+        documents = [record.text for record in self.corpus]
+        keys = [record.id for record in self.corpus]
+        return documents, keys
+
+    def create_dataframe(self):
+        return pd.DataFrame(self.tfidf_matrix.toarray(), columns=self.vectorizer.get_feature_names_out(),
+                            index=self.keys)
+
+    def save(self, model_name="Saved/model.pickle", tfidf_name="Saved/tfidf.pickle", keys_name="Saved/keys.pickle"):
+        pickle.dump(self.vectorizer, open(model_name, 'wb'))
+        pickle.dump(self.tfidf_matrix, open(tfidf_name, "wb"))
+        pickle.dump(self.keys, open(keys_name, "wb"))
+
+    @staticmethod
+    def load(model_name="Saved/model.pickle", tfidf_name="Saved/tfidf.pickle", keys_name="Saved/keys.pickle"):
+        i = Index()
+        i.tfidf_matrix = pickle.load(open(tfidf_name, 'rb'))
+        i.vectorizer = pickle.load(open(model_name, 'rb'))
+        i.keys = pickle.load(open(keys_name, 'rb'))
+        return i
