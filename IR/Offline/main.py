@@ -6,7 +6,7 @@ from datetime import datetime
 from Pipeline.preprocessor.preprocessor import preprocessor
 
 start = datetime.now()
-records = fetch_records('dataset1.db', 100)
+records = fetch_records('dataset1.db', 10)
 documents = [rec.text for rec in records]
 index = Index(records)
 index.save()
@@ -15,7 +15,7 @@ end = datetime.now()
 print(index.create_dataframe())
 print(end - start)
 
-index = Index.load()
+# index = Index.load()
 query = '1775'
 preprocessed_query = preprocessor(query)
 print(preprocessed_query)
