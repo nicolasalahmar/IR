@@ -3,6 +3,7 @@ from Helper.ORM import bulk_insert_records
 import sqlite3
 from toolz import pipe
 from Pipeline.preprocessor.empty_tokens import remove_empty_tokens
+from Pipeline.preprocessor.lower import lower
 from Pipeline.preprocessor.punctuation import remove_punctuation
 from Pipeline.preprocessor.spelling import correct_sentence_spelling1
 from Pipeline.preprocessor.stopwords import remove_stopwords
@@ -12,6 +13,7 @@ from Pipeline.preprocessor.num2words import convert_num2words
 
 def preprocessor(text):
     return pipe(text,
+                lower,
                 to_sentences,
                 correct_sentence_spelling1,
                 ' '.join,
