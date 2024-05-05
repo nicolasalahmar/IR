@@ -1,19 +1,17 @@
-import sys
-
+from alive_progress import alive_bar
 from Helper.ORM import bulk_insert_records
-from Pipeline.preprocessor.num2words import convert_num2words
 from nltk import word_tokenize
+import sqlite3
 from Pipeline.preprocessor.punctuation import remove_punctuation
 from Pipeline.preprocessor.spelling import correct_sentence_spelling
 from Pipeline.preprocessor.stopwords import remove_stopwords
-import sqlite3
-
 from Pipeline.preprocessor.tokenize import to_sentences
+from Pipeline.preprocessor.num2words import convert_num2words
 
 
 def preprocessor(text):
-    sentneces = to_sentences(text)
-    spell_checked_docs = correct_sentence_spelling(sentneces)
+    sentences = to_sentences(text)
+    spell_checked_docs = correct_sentence_spelling(sentences)
     spell_checked_docs = ' '.join(spell_checked_docs)
 
     tokens = word_tokenize(spell_checked_docs)
@@ -26,13 +24,16 @@ def preprocessor(text):
 
 
 def insert_records(records):
-    for record in records:
-        record.text = preprocessor(record.text)
-    bulk_insert_records('partially_processed_dataset1.db', records)
+    l = len(records)
+    with alive_bar(l) as bar:
+        for record in records:
+            record.text = preprocessor(record.text)
+            bar()
+    bulk_insert_records('intermediary_dataset/partially_processed_dataset1.db', records)
 
 
 def create_table():
-    sqliteConnection = sqlite3.connect('partially_processed_dataset1.db')
+    sqliteConnection = sqlite3.connect('intermediary_dataset/partially_processed_dataset1.db')
     cursor = sqliteConnection.cursor()
     cursor.execute('CREATE TABLE IF NOT EXISTS corpus (id TEXT PRIMARY KEY, TEXT TEXT);')
     sqliteConnection.commit()

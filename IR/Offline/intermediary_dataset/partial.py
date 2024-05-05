@@ -1,13 +1,14 @@
-import time
 from Helper.ORM import fetch_new_records
 from multiprocessing import Pool
-from insert import insert_records, create_table
+
+from Helper.timing import Timing
+from intermediary_dataset.insert import insert_records, create_table
 
 if __name__ == '__main__':
     create_table()
 
-    # get records from dataset
-    records1 = fetch_new_records('../dataset1.db', 'partially_processed_dataset1.db')
+    # get records from dataset 4252114_7
+    records1 = fetch_new_records('dataset1.db', 'intermediary_dataset/partially_processed_dataset1.db', 100)
 
     # number of processes to be run (12 because my pc has 6 physical cores and 12 logical cores)
     n = 12
@@ -16,8 +17,7 @@ if __name__ == '__main__':
     chunk_size = int(len(records1) / n)
     records1 = [records1[i:i + chunk_size] for i in range(0, len(records1), chunk_size)]
 
-    start_time = time.time()
-    with Pool(n) as p:
-        p.map(insert_records, records1)
-    elapsed_time = time.time() - start_time
-    print('Elapsed Time: ', elapsed_time)
+    timing = Timing('Full Operation Timing')
+    with timing as t:
+        with Pool(n) as p:
+            p.map(insert_records, records1)
