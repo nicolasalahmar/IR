@@ -1,26 +1,28 @@
 from alive_progress import alive_bar
 from Helper.ORM import bulk_insert_records
-from nltk import word_tokenize
 import sqlite3
+from toolz import pipe
+from Pipeline.preprocessor.empty_tokens import remove_empty_tokens
 from Pipeline.preprocessor.punctuation import remove_punctuation
-from Pipeline.preprocessor.spelling import correct_sentence_spelling
+from Pipeline.preprocessor.spelling import correct_sentence_spelling1, correct_sentence_spelling2
 from Pipeline.preprocessor.stopwords import remove_stopwords
-from Pipeline.preprocessor.tokenize import to_sentences
+from Pipeline.preprocessor.tokenize import to_sentences, to_tokens
 from Pipeline.preprocessor.num2words import convert_num2words
 
 
 def preprocessor(text):
-    sentences = to_sentences(text)
-    spell_checked_docs = correct_sentence_spelling(sentences)
-    spell_checked_docs = ' '.join(spell_checked_docs)
-
-    tokens = word_tokenize(spell_checked_docs)
-    num_handled_tokens = convert_num2words(tokens)
-    unpunctuated_tokens = remove_punctuation(num_handled_tokens)
-    no_stop_words_tokens = remove_stopwords(unpunctuated_tokens)
-    no_empty_strings = list(filter(None, no_stop_words_tokens))
-    processed_text = ' '.join(no_empty_strings)
-    return processed_text
+    return pipe(text,
+                to_sentences,
+                correct_sentence_spelling1,
+                ' '.join,
+                to_tokens,
+                correct_sentence_spelling2,
+                convert_num2words,
+                remove_punctuation,
+                remove_stopwords,
+                remove_empty_tokens,
+                ' '.join
+                )
 
 
 def insert_records(records):

@@ -1,6 +1,9 @@
 from autocorrect import Speller
+from nltk.corpus import stopwords
 
 spell = Speller(lang='en')
+
+stop_words = set(stopwords.words('english'))
 
 # contractions = {
 #     # "ain't": "am not / are not / is not / has not / have not",

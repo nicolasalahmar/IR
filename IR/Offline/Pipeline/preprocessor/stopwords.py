@@ -1,7 +1,6 @@
-from nltk.corpus import stopwords
+from Pipeline.preprocessor import stop_words
 
 
 def remove_stopwords(tokens):
-    stop_words = set(stopwords.words('english'))
     filtered_tokens = [word for word in tokens if word not in stop_words]
     return filtered_tokens
