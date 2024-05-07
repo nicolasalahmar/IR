@@ -1,7 +1,8 @@
 from atpbar import atpbar
-from Helper.ORM import bulk_insert_records
+from Helper.ORM import bulk_insert_records, delete_records
 import sqlite3
 from toolz import pipe
+from Helper.model import Corpus
 from Pipeline.preprocessor.empty_tokens import remove_empty_tokens
 from Pipeline.preprocessor.lower import lower
 from Pipeline.preprocessor.punctuation import remove_punctuation
@@ -30,7 +31,11 @@ def preprocessor(text):
 def insert_records(name, records):
     for i in atpbar(range(len(records)), name=name):
         records[i].text = preprocessor(records[i].text)
-    bulk_insert_records('intermediary_dataset/partially_processed_dataset1.db', records)
+
+    with Corpus._meta.database.atomic() as transaction:
+        bulk_insert_records('intermediary_dataset/partially_processed_dataset1.db', records)
+        for record in records:
+            delete_records(record, 'dataset1.db')
 
 
 def create_table():

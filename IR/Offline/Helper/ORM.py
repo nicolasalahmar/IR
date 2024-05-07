@@ -13,14 +13,12 @@ def fetch_records(ds, limit=None):
 
 def fetch_new_records(base_ds, new_ds, limit=None):
     Corpus.set_db(SqliteDatabase(new_ds))
-    new_recs = Corpus.select()
-    keys = [x.id for x in new_recs]
 
     Corpus.set_db(SqliteDatabase(base_ds))
     if limit:
-        return Corpus.select().where(~Corpus.id.in_(keys)).limit(limit)
+        return Corpus.select().limit(limit)
     else:
-        return Corpus.select().where(~Corpus.id.in_(keys))
+        return Corpus.select()
 
 
 def insert_record(ds, rec):
@@ -31,3 +29,8 @@ def insert_record(ds, rec):
 def bulk_insert_records(ds, recs):
     Corpus.set_db(SqliteDatabase(ds))
     return Corpus.bulk_create(recs)
+
+
+def delete_records(record, db):
+    Corpus.set_db(SqliteDatabase(db))
+    Corpus.delete().where(Corpus.id == record.id).execute()
