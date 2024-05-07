@@ -11,7 +11,7 @@ if __name__ == '__main__':
     # get records from dataset
     timing = Timing('Fetching New Records Timing')
     with timing as t:
-        records1 = fetch_new_records('dataset1.db', 'intermediary_dataset/partially_processed_dataset1.db', 100)
+        records1 = fetch_new_records('dataset1.db', 'intermediary_dataset/partially_processed_dataset1.db', 50000)
 
     # number of processes to be run (12 because my pc has 6 physical cores and 12 logical cores)
     n = 12
