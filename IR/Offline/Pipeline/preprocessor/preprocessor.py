@@ -1,6 +1,7 @@
 from toolz import pipe
 
 from Pipeline.preprocessor.date_to_text import convert_date_format
+from Pipeline.preprocessor.percentage import replace_percentages
 from Pipeline.preprocessor.replace_dates import replace_dates
 from Pipeline.preprocessor.ordinal_nums import replace_ordinal_numbers
 from Pipeline.preprocessor.empty_tokens import remove_empty_tokens
@@ -19,6 +20,7 @@ def preprocessor(text):
                 to_sentences,  # processes that require sentence tokens
                 correct_sentence_spelling1,
                 ' '.join,
+                replace_percentages,
                 remove_stopwords,
                 to_tokens,  # processes that require word tokens
                 stem,
@@ -31,4 +33,4 @@ def preprocessor(text):
                 ' '.join
                 )
 
-print(preprocessor(r'''explicity define what ur 7 ps are - product, price, place, promotion, process, physical environment and people. so if u know hw to prpare marketing plan for a prodcut , same applies for services also. if u need a marketing plan for product i have a template for that..... email me . . sandeep1026@gmail.com'''))
+print(preprocessor(r'''explicity define what ur 7% ps are - product, price, place, promotion, process, physical environment and people. so if u know hw to prpare marketing plan for a prodcut , same applies for services also. if u need a marketing plan for product i have a template for that..... email me . . sandeep1026@gmail.com'''))
