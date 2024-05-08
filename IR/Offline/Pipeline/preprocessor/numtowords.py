@@ -81,7 +81,6 @@ unit_map = {
 
     # Speed
     "kmh": "kilometers per hour",
-    "ms": "meters per second",
     "fts": "feet per second",
     "mph": "miles per hour",
     "kt": "knot (nautical miles per hour)",

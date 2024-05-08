@@ -11,6 +11,7 @@ def replace_dates(tokens):
             tokens[i] = replaced_decade
     return tokens
 
-#tokens = ["1990s", "2110s", "15th","hello"]
-#tokens = replace_decades(tokens)
-#print(tokens)
+
+if __name__ == '__main__':
+    tokens = ["1990s", "2110s", "15th", "hello"]
+    print(replace_dates(tokens))
