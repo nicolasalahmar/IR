@@ -1,5 +1,6 @@
 from toolz import pipe
 
+from Pipeline.preprocessor.date_to_text import convert_date_format
 from Pipeline.preprocessor.replace_dates import replace_dates
 from Pipeline.preprocessor.ordinal_nums import replace_ordinal_numbers
 from Pipeline.preprocessor.empty_tokens import remove_empty_tokens
@@ -21,6 +22,7 @@ def preprocessor(text):
                 to_tokens,  # processes that require word tokens
                 remove_stopwords,
                 stem,
+                convert_date_format,
                 replace_dates,
                 replace_ordinal_numbers,
                 convert_num2words,
@@ -29,5 +31,4 @@ def preprocessor(text):
                 ' '.join
                 )
 
-
-#print(preprocessor(r'''5th 4th century bce second book c 2nd 1st century bce is the first of the twelve angas part of the agamas religious texts which were compiled based on the teachings of mahavira the existing text of the acharanga sutra which is used by the svetambara sect of jainism was recompiled and edited by kshamashraman devardhigani who headed the council held at valabhi c 454 ce the digambaras do not recognize the available text and regard the original text as having been lost in its original form the digambara text mulachara is said to be derived from the original acharanga and discusses the conduct of a digambara monk the acharanga sutra is the oldest agam from a linguistic point of view written in ardhamagadhi prakrit the sutra contains two books or srutaskandhas the first book is the older part to which other treatises were later added it describes the conduct and behavior of ascetic life the mode of asking for food bowl clothes conduct while walking and speaking and regulation of possessions by ascetics it also describes the penance of mahavira the great hero the second book is divided into four sections called kulas there were originally five k l'''))
+# print(preprocessor(r'''1/1/1990 5th 4th century bce second book c 2nd 1st century bce is the first of the twelve angas part of the agamas religious texts which were compiled based on the teachings of mahavira the existing text of the acharanga sutra which is used by the svetambara sect of jainism was recompiled and edited by kshamashraman devardhigani who headed the council held at valabhi c 454 ce the digambaras do not recognize the available text and regard the original text as having been lost in its original form the digambara text mulachara is said to be derived from the original acharanga and discusses the conduct of a digambara monk the acharanga sutra is the oldest agam from a linguistic point of view written in ardhamagadhi prakrit the sutra contains two books or srutaskandhas the first book is the older part to which other treatises were later added it describes the conduct and behavior of ascetic life the mode of asking for food bowl clothes conduct while walking and speaking and regulation of possessions by ascetics it also describes the penance of mahavira the great hero the second book is divided into four sections called kulas there were originally five k l'''))
