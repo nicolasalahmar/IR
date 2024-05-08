@@ -24,13 +24,13 @@ class Index:
         return pd.DataFrame(self.tfidf_matrix.toarray(), columns=self.vectorizer.get_feature_names_out(),
                             index=self.keys)
 
-    def save(self, model_name="Saved/model.pickle", tfidf_name="Saved/tfidf.pickle", keys_name="Saved/keys.pickle"):
+    def save(self, model_name="Pipeline/index/Saved/model.pickle", tfidf_name="Pipeline/index/Saved/tfidf.pickle", keys_name="Pipeline/index/Saved/keys.pickle"):
         pickle.dump(self.vectorizer, open(model_name.replace('.pickle', str(len(self.keys)) + '.pickle'), 'wb'))
         pickle.dump(self.tfidf_matrix, open(tfidf_name.replace('.pickle', str(len(self.keys)) + '.pickle'), "wb"))
         pickle.dump(self.keys, open(keys_name.replace('.pickle', str(len(self.keys)) + '.pickle'), "wb"))
 
     @staticmethod
-    def load(model_name="Saved/model.pickle", tfidf_name="Saved/tfidf.pickle", keys_name="Saved/keys.pickle"):
+    def load(model_name="Pipeline/index/Saved/model.pickle", tfidf_name="Pipeline/index/Saved/tfidf.pickle", keys_name="Pipeline/index/Saved/keys.pickle"):
         i = Index()
         i.tfidf_matrix = pickle.load(open(tfidf_name, 'rb'))
         i.vectorizer = pickle.load(open(model_name, 'rb'))

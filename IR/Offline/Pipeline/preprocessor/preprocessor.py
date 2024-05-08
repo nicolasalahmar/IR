@@ -7,7 +7,7 @@ from Pipeline.preprocessor.empty_tokens import remove_empty_tokens
 from Pipeline.preprocessor.lower import lower
 from Pipeline.preprocessor.numtowords import convert_num2words
 from Pipeline.preprocessor.punctuation import remove_punctuation
-from Pipeline.preprocessor.spelling import correct_sentence_spelling1, correct_sentence_spelling2
+from Pipeline.preprocessor.spelling import correct_sentence_spelling1
 from Pipeline.preprocessor.stemmer import stem
 from Pipeline.preprocessor.stopwords import remove_stopwords
 from Pipeline.preprocessor.tokenize import to_tokens, to_sentences
@@ -31,4 +31,6 @@ def preprocessor(text):
                 ' '.join
                 )
 
-print(preprocessor(r'''explicity define what ur 7% ps are - product, price, place, promotion, process, physical environment and people. so if u know hw to prpare marketing plan for a prodcut , same applies for services also. if u need a marketing plan for product i have a template for that..... email me . . sandeep1026@gmail.com'''))
+
+if __name__ == '__main__':
+    print(preprocessor('nicolasalahmar@gmail.com'))

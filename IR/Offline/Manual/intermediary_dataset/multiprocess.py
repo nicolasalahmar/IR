@@ -1,8 +1,6 @@
 import multiprocessing
-
 from atpbar import register_reporter
-
-from intermediary_dataset.insert import insert_records
+from Manual.intermediary_dataset.insert import insert_records
 
 
 def start_processes(reporter, nprocesses, queue):
