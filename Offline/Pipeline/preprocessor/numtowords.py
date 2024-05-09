@@ -38,10 +38,10 @@ unit_map = {
     "st": "stone",
 
     # Volume
-    "L": "liter",
-    "mL": "milliliter",
-    "cL": "centiliter",
-    "dL": "deciliter",
+    "l": "liter",
+    "ml": "milliliter",
+    "cl": "centiliter",
+    "dl": "deciliter",
     "gal": "gallon",
     "qt": "quart",
     "pt": "pint",
@@ -66,7 +66,7 @@ unit_map = {
     # Temperature
     "celsius": "degrees Celsius",
     "fahrenheit": "degrees Fahrenheit",
-    "K": "kelvin",
+    "k": "kelvin",
 
     # Area
     "km2": "square kilometer",
@@ -86,53 +86,53 @@ unit_map = {
     "kt": "knot (nautical miles per hour)",
 
     # Force
-    "N": "newton",
-    "kN": "kilonewton",
-    "MN": "meganewton",
+    "n": "newton",
+    "kn": "kilonewton",
+    "mn": "meganewton",
     "lbf": "pound-force",
     "kip": "kip (force)",
 
     # Pressure
-    "Pa": "pascal",
-    "kPa": "kilopascal",
-    "MPa": "megapascal",
+    "pa": "pascal",
+    "kpa": "kilopascal",
+    "mpa": "megapascal",
     "bar": "bar",
     "psi": "pounds per square inch",
     "mmHg": "millimeters of mercury",
     "atm": "atmosphere",
 
     # Energy
-    "J": "joule",
-    "kJ": "kilojoule",
-    "MJ": "megajoule",
+    "j": "joule",
+    "kj": "kilojoule",
+    "mj": "megajoule",
     "cal": "calorie",
     "kcal": "kilocalorie",
-    "kWh": "kilowatt-hour",
+    "kwh": "kilowatt-hour",
 
     # Power
-    "W": "watt",
-    "kW": "kilowatt",
-    "MW": "megawatt",
+    "w": "watt",
+    "kw": "kilowatt",
+    "mw": "megawatt",
     "hp": "horsepower",
 
     # Electrical
-    "V": "volt",
-    "kV": "kilovolt",
-    "MV": "megavolt",
-    "A": "ampere",
-    "kA": "kiloampere",
-    "mA": "milliampere",
-    "C": "coulomb",
-    "F": "farad",
-    "pF": "picofarad",
+    "v": "volt",
+    "kv": "kilovolt",
+    "mv": "megavolt",
+    "a": "ampere",
+    "ka": "kiloampere",
+    "ma": "milliampere",
+    "c": "coulomb",
+    "f": "farad",
+    "pf": "picofarad",
     "Ω": "ohm",
-    "Hz": "hertz",
+    "hz": "hertz",
 
     # Data
-    "B": "byte",
-    "kB": "kilobyte",
-    "MB": "megabyte",
-    "GB": "gigabyte",
+    "b": "byte",
+    "kb": "kilobyte",
+    "mb": "megabyte",
+    "gb": "gigabyte",
 }
 
 

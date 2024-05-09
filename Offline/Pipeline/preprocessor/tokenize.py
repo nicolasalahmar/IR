@@ -1,7 +1,7 @@
 from nltk import word_tokenize, sent_tokenize
 from Pipeline.preprocessor.find_email import find_email
 from Pipeline.preprocessor.find_url import find_url
-
+from nltk.tokenize import WhitespaceTokenizer
 
 def to_tokens(text):
     emails, text_with_email_placeholder = find_email(text)
@@ -19,3 +19,7 @@ def to_tokens(text):
 
 def to_sentences(text):
     return sent_tokenize(text)
+
+
+def whitespace_tokenize(text):
+    return WhitespaceTokenizer().tokenize(text)

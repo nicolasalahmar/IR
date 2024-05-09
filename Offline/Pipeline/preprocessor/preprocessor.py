@@ -10,17 +10,22 @@ from Pipeline.preprocessor.punctuation import remove_punctuation
 from Pipeline.preprocessor.spelling import correct_sentence_spelling1
 from Pipeline.preprocessor.stemmer import stem
 from Pipeline.preprocessor.stopwords import remove_stopwords
-from Pipeline.preprocessor.tokenize import to_tokens, to_sentences
+from Pipeline.preprocessor.tokenize import to_tokens, to_sentences, whitespace_tokenize
 
 
 def preprocessor(text):
     return pipe(text,
                 lower,
-                to_sentences,  # processes that require sentence tokens
+
+                to_sentences,
                 correct_sentence_spelling1,
                 ' '.join,
+
+                whitespace_tokenize,
                 remove_stopwords,
-                to_tokens,  # processes that require word tokens
+                ' '.join,
+
+                to_tokens,
                 stem,
                 convert_date_format,
                 replace_dates,
@@ -33,4 +38,5 @@ def preprocessor(text):
 
 
 if __name__ == '__main__':
-    print(preprocessor('nicolasalahmar@gmail.com'))
+    print(preprocessor(r'''It is the (secant(x))^2; or you could write it as (cos(x))^(-2) or 1/(cos(x))^2.. . But basically the secant squared is the most elegant answer.'''))
+
