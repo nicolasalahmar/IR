@@ -1,8 +1,12 @@
 from peewee import *
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # default database
-db = SqliteDatabase('../dataset1.db')
+db = SqliteDatabase('../' + os.getenv('dataset'))
 
 
 class Corpus(Model):

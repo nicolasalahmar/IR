@@ -3,6 +3,7 @@ from Pipeline.preprocessor.find_email import find_email
 from Pipeline.preprocessor.find_url import find_url
 from nltk.tokenize import WhitespaceTokenizer
 
+
 def to_tokens(text):
     emails, text_with_email_placeholder = find_email(text)
     urls, text_with_url_placeholder = find_url(text_with_email_placeholder)

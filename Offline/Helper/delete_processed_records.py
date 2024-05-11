@@ -1,11 +1,14 @@
 from peewee import SqliteDatabase
-
+import os
+from dotenv import load_dotenv
 from Helper.ORM import fetch_records
 from Helper.model import Corpus
 
-records = fetch_records('../intermediary_dataset/partially_processed_dataset1.db')
+load_dotenv()
 
-Corpus.set_db(SqliteDatabase('../dataset1.db'))
+records = fetch_records('../intermediary_dataset/' + os.getenv('partially_processed_db'))
+
+Corpus.set_db(SqliteDatabase('../' + os.getenv('dataset')))
 counter = 0
 for record in records:
     Corpus.delete().where(Corpus.id == record.id).execute()

@@ -1,18 +1,16 @@
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
+import os
 from Helper.ORM import fetch_records
 from Helper.timing import Timing
 from Pipeline.index.index import Index
-from Pipeline.preprocessor.preprocessor import preprocessor
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def create_index_and_save():
     # fetching new records
-    with Timing('Fetching records...'):
-        records = fetch_records('dataset1.db', 10)
-        documents = [rec.text for rec in records]
-
-    # creating the index and saving it as a binary file
+    records = fetch_records(os.getenv('dataset'))
+    documents = [rec.text for rec in records]
     index = Index(records)
     index.save()
     return index, documents
@@ -45,11 +43,9 @@ def print_similar_docs(sorted_indices, cosine_similarities, documents):
 
 
 if __name__ == '__main__':
-    index, documents = create_index_and_save()
-    # index = Index.load(model_name="Pipeline/index/Saved/model10.pickle", tfidf_name="Pipeline/index/Saved/tfidf10.pickle", keys_name="Pipeline/index/Saved/keys10.pickle")
-
-    # print a data frame of the index
-    print(index.create_dataframe())
+    with Timing('Creating Index...'):
+        # index, documents = create_index_and_save()
+        index = Index.load(model_name=os.getenv("saved_model_name"), tfidf_name=os.getenv("saved_tfidf_name"), keys_name=os.getenv("saved_keys_name"))
 
     # preprocess the query create the query vector
     query_vector = initialize_query('1775')
