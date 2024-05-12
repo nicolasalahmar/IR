@@ -1,9 +1,8 @@
 import os
-from dotenv import load_dotenv
 from atpbar import atpbar
-from Helper.ORM import bulk_insert_records, delete_records
-import sqlite3
-from Helper.model import Corpus
+from dotenv import load_dotenv
+from Helper.ORM import processed_record_exists
+from Helper.model import Processed_Corpus
 from Pipeline.preprocessor.preprocessor import preprocessor
 
 load_dotenv()
@@ -11,21 +10,23 @@ load_dotenv()
 
 def insert_records(name, records):
     for i in atpbar(range(len(records)), name=name):
-        records[i].text = preprocessor(records[i].text)
-
-    with Corpus._meta.database.atomic():
-        bulk_insert_records(os.getenv('partially_processed_db'), records)
-        for record in records:
-            delete_records(record, os.getenv('dataset'))
+        if not processed_record_exists(os.getenv('dataset'), records[i]):
+            records[i].text = preprocessor(records[i].text)
+            Processed_Corpus.create(id=records[i].id, text=records[i].text)
 
 
-def create_table():
-    sqliteConnection = sqlite3.connect(os.getenv('partially_processed_db'))
-    cursor = sqliteConnection.cursor()
-    cursor.execute('CREATE TABLE IF NOT EXISTS corpus (id TEXT PRIMARY KEY, TEXT TEXT);')
-    sqliteConnection.commit()
+def add_to_queue(records1, queue):
+    for i, rec in enumerate(records1):
+        name = 'task {}'.format(i)
+        queue.put((name, rec))
 
 
-def split_arr(records1, n):
-    chunk_size = int(len(records1) / n)
-    return [records1[i:i + chunk_size] for i in range(0, len(records1), chunk_size)]
+def split_arr(records, n):
+    try:
+        length = len(records)
+    except:
+        records = list(records)
+        length = len(list(records))
+
+    chunk_size = int(length / n)
+    return [records[i:i + chunk_size] for i in range(0, length, chunk_size)]

@@ -1,6 +1,7 @@
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
+from Pipeline.matching_ranking.match import find_similarities, get_top_docs
 from Pipeline.preprocessor.tokenize import to_tokens
 from Pipeline.preprocessor.preprocessor import preprocessor
 
@@ -8,7 +9,7 @@ from Pipeline.preprocessor.preprocessor import preprocessor
 class Index:
     def __init__(self, corpus=None):
         self.corpus = corpus
-        self.vectorizer = TfidfVectorizer(preprocessor=preprocessor, tokenizer=to_tokens, token_pattern=None)
+        self.vectorizer = TfidfVectorizer()
         if corpus is not None:
             self.documents, self.keys = self.DocsKeys()
             self.tfidf_matrix = self.vectorizer.fit_transform(self.documents)
@@ -36,3 +37,13 @@ class Index:
         i.vectorizer = pickle.load(open(model_name, 'rb'))
         i.keys = pickle.load(open(keys_name, 'rb'))
         return i
+
+    def search(self, query):
+        # preprocess the query create the query vector
+        query_vector = self.initialize_query(query)
+        sorted_indices, cosine_similarities = find_similarities(query_vector, self)
+        return get_top_docs(sorted_indices, cosine_similarities, self.keys)
+
+    def initialize_query(self, text):
+        preprocessed_query = preprocessor(text)
+        return self.vectorizer.transform([preprocessed_query])

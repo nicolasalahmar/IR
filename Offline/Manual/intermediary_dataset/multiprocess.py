@@ -1,18 +1,11 @@
 import multiprocessing
 from atpbar import register_reporter
-from Manual.intermediary_dataset.insert import insert_records
 
 
-def start_processes(reporter, nprocesses, queue):
+def start_processes(reporter, nprocesses, queue, task):
     for i in range(nprocesses):
-        p = multiprocessing.Process(target=worker, args=(reporter, insert_records, queue))
+        p = multiprocessing.Process(target=worker, args=(reporter, task, queue))
         p.start()
-
-
-def add_to_queue(records1, queue):
-    for i, rec in enumerate(records1):
-        name = 'task {}'.format(i)
-        queue.put((name, rec))
 
 
 def join_queue(nprocesses, queue):
