@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from peewee import SqliteDatabase
-from Helper.model import Corpus, Processed_Corpus
+from Helper.model import Corpus, Processed_Corpus, Lower_Processed_Corpus
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -47,5 +47,10 @@ def bulk_insert_records(ds, recs):
 #     Corpus.delete().where(Corpus.id == record.id).execute()
 
 def processed_record_exists(ds, record):
-    Corpus.set_db(SqliteDatabase(ds))
+    Processed_Corpus.set_db(SqliteDatabase(ds))
     return Processed_Corpus.select().where(Processed_Corpus.id == record.id).exists()
+
+
+def lower_processed_record_exists(ds, record):
+    Lower_Processed_Corpus.set_db(SqliteDatabase(ds))
+    return Lower_Processed_Corpus.select().where(Lower_Processed_Corpus.id == record.id).exists()

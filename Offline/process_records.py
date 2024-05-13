@@ -13,6 +13,7 @@ load_dotenv()
 if __name__ == '__main__':
     create_table('corpus', os.getenv('dataset'))
     create_table('processed_corpus', os.getenv('dataset'))
+    create_table('lower_processed_corpus', os.getenv('dataset'))
 
     # get records from dataset
     with Timing('Fetching New Records Timing'):

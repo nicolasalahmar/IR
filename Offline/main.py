@@ -19,11 +19,12 @@ def create_index_and_save():
 
 if __name__ == '__main__':
     with Timing('Creating Index...'):
-        index, documents = create_index_and_save()
-        # index = Index.load(model_name=os.getenv("saved_model_name"), tfidf_name=os.getenv("saved_tfidf_name"), keys_name=os.getenv("saved_keys_name"))
+        #index, documents = create_index_and_save()
+        index = Index.load(model_name=os.getenv("saved_model_name"), tfidf_name=os.getenv("saved_tfidf_name"), keys_name=os.getenv("saved_keys_name"))
+    #print(len(index.tfidf_matrix.toarray()))
 
     with Timing('Evaluating Documents...'):
-        ev = evaluate(index)
+        ev = evaluate(index, create_run_file_bool=True)
         print(ev)
 
         # top_documents = index.search('IRAQ')

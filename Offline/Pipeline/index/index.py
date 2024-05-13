@@ -9,7 +9,7 @@ from Pipeline.preprocessor.preprocessor import preprocessor
 class Index:
     def __init__(self, corpus=None):
         self.corpus = corpus
-        self.vectorizer = TfidfVectorizer()
+        self.vectorizer = TfidfVectorizer(tokenizer=to_tokens)
         if corpus is not None:
             self.documents, self.keys = self.DocsKeys()
             self.tfidf_matrix = self.vectorizer.fit_transform(self.documents)

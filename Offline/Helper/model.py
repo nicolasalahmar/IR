@@ -27,7 +27,19 @@ class Processed_Corpus(Model):
 
     @staticmethod
     def set_db(db):
-        Corpus._meta.database = db
+        Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+
+class Lower_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Processed_Corpus._meta.database = db
 
     class Meta:
         database = db
