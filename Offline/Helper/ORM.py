@@ -10,9 +10,9 @@ load_dotenv()
 def fetch_records(ds, limit=None):
     Processed_Corpus.set_db(SqliteDatabase(ds))
     if limit:
-        return Corpus.select().limit(limit)
+        return Processed_Corpus.select().limit(limit)
     else:
-        return Corpus.select()
+        return Processed_Corpus.select()
 
 
 def create_table(name, ds):
