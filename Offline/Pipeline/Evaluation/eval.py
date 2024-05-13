@@ -11,10 +11,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def evaluate(index):
+def evaluate(index, create_run_file_bool=False):
     qrels = ir_measures.read_trec_qrels(qrels_path)
 
-    create_run_file(index)
+    if create_run_file_bool:
+        create_run_file(index)
 
     run = ir_measures.read_trec_run(run_path)
 
