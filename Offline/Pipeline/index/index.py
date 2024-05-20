@@ -1,9 +1,11 @@
 import pickle
-from sklearn.feature_extraction.text import TfidfVectorizer
+
 import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 from Pipeline.matching_ranking.match import find_similarities, get_top_docs
-from Pipeline.preprocessor.tokenize import to_tokens
 from Pipeline.preprocessor.preprocessor import preprocessor
+from Pipeline.preprocessor.tokenize import to_tokens
 
 
 class Index:

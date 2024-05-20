@@ -1,7 +1,9 @@
 import multiprocessing
 import os
-from dotenv import load_dotenv
+
 from atpbar import find_reporter, flush
+from dotenv import load_dotenv
+
 from Helper.ORM import fetch_records, create_table
 from Helper.timing import Timing
 from Manual.intermediary_dataset.insert import split_arr, insert_records, add_to_queue
@@ -11,13 +13,12 @@ load_dotenv()
 
 
 if __name__ == '__main__':
-    create_table('corpus', os.getenv('dataset'))
-    create_table('processed_corpus', os.getenv('dataset'))
-    create_table('lower_processed_corpus', os.getenv('dataset'))
+    create_table(os.getenv('model'))
+    create_table(os.getenv('new_model'))
 
     # get records from dataset
     with Timing('Fetching New Records Timing'):
-        records1 = fetch_records(os.getenv('dataset'))
+        records1 = fetch_records()
 
     # number of processes to be run (12 because my pc has 6 physical cores and 12 logical cores)
     n = int(os.getenv('ncores'))

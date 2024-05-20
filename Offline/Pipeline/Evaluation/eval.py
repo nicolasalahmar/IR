@@ -1,11 +1,13 @@
 import csv
 import multiprocessing
+
 import ir_measures
 from atpbar import find_reporter, flush, atpbar
+from dotenv import load_dotenv
+
 from Manual.intermediary_dataset.insert import split_arr
 from Manual.intermediary_dataset.multiprocess import start_processes, join_queue
 from Pipeline.Evaluation import measures, qrels_path, run_path, queries_path, n, nprocesses
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -22,10 +24,14 @@ def evaluate(index, create_run_file_bool=False):
 
 
 def create_run_file(index):
+    open(run_path, 'w').close()
+
     queries = open(queries_path, 'r')
     queries = csv.reader(queries)
 
     next(queries)
+    n = 1
+    nprocesses = 1
     queries = split_arr(queries, n)
 
     reporter = find_reporter()
@@ -36,6 +42,14 @@ def create_run_file(index):
     add_to_queue(queries, queue, index)
     join_queue(nprocesses, queue)
     flush()
+
+    f = open(run_path, 'r+')
+    content = f.read()
+    content = content.rstrip('\n')
+    f.seek(0)
+    f.write(content)
+    f.truncate()
+    f.close()
 
 
 def write_to_run_file(name, queries, index):

@@ -1,56 +1,45 @@
 import os
 import sqlite3
-from peewee import SqliteDatabase
-from Helper.model import Corpus, Processed_Corpus, Lower_Processed_Corpus
+
 from dotenv import load_dotenv
+from peewee import SqliteDatabase
+
+from Helper.model import class_for_name
 
 load_dotenv()
+ds = os.getenv('dataset')
 
 
-def fetch_records(ds, limit=None):
-    Processed_Corpus.set_db(SqliteDatabase(ds))
+def change_db(ds, model=os.getenv('model')):
+    c = class_for_name(model)
+    c.set_db(SqliteDatabase(ds))
+
+
+def fetch_records(model=os.getenv('model'), limit=None):
+    c = class_for_name(model)
+    change_db(ds)
     if limit:
-        return Processed_Corpus.select().limit(limit)
+        return c.select().limit(limit)
     else:
-        return Processed_Corpus.select()
+        return c.select()
 
 
-def create_table(name, ds):
+def create_table(name, ds=os.getenv('dataset')):
     sqliteConnection = sqlite3.connect(ds)
     cursor = sqliteConnection.cursor()
     cursor.execute(f'CREATE TABLE IF NOT EXISTS {name} (id TEXT PRIMARY KEY, TEXT TEXT);')
     sqliteConnection.commit()
 
 
-def fetch_new_records(base_ds, new_ds, limit=None):
-    Corpus.set_db(SqliteDatabase(new_ds))
+def record_exists(record, model=os.getenv('model')):
+    c = class_for_name(model)
+    change_db(ds)
 
-    Corpus.set_db(SqliteDatabase(base_ds))
-    if limit:
-        return Corpus.select().limit(limit)
-    else:
-        return Corpus.select()
+    return c.select().where(c.id == record.id).exists()
 
 
-def insert_record(ds, rec):
-    Corpus.set_db(SqliteDatabase(ds))
-    return Corpus.create(id=rec.id, text=rec.text)
-
-
-def bulk_insert_records(ds, recs):
-    Corpus.set_db(SqliteDatabase(ds))
-    return Corpus.bulk_create(recs)
-
-
-# def delete_records(record, db):
-#     Corpus.set_db(SqliteDatabase(db))
-#     Corpus.delete().where(Corpus.id == record.id).execute()
-
-def processed_record_exists(ds, record):
-    Processed_Corpus.set_db(SqliteDatabase(ds))
-    return Processed_Corpus.select().where(Processed_Corpus.id == record.id).exists()
-
-
-def lower_processed_record_exists(ds, record):
-    Lower_Processed_Corpus.set_db(SqliteDatabase(ds))
-    return Lower_Processed_Corpus.select().where(Lower_Processed_Corpus.id == record.id).exists()
+def create_record(record, model=os.getenv('model')):
+    c = class_for_name(model)
+    change_db(ds)
+    change_db(ds, model=os.getenv('new_model'))
+    t = c.create(id=record.id, text=record.text)

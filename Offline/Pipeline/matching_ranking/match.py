@@ -1,5 +1,5 @@
-from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 def find_similarities(query_vector, index):
@@ -13,7 +13,7 @@ def find_similarities(query_vector, index):
     return sorted_indices, cosine_similarities
 
 
-def get_top_docs(sorted_indices, cosine_similarities, keys, top_n=10):
+def get_top_docs(sorted_indices, cosine_similarities, keys, top_n=11):
     lst = []
     counter = 0
     for idx in sorted_indices[:top_n]:

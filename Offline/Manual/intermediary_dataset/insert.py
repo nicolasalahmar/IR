@@ -1,8 +1,9 @@
 import os
+
 from atpbar import atpbar
 from dotenv import load_dotenv
-from Helper.ORM import processed_record_exists, lower_processed_record_exists
-from Helper.model import Processed_Corpus, Lower_Processed_Corpus
+
+from Helper.ORM import create_record, record_exists
 from Pipeline.preprocessor.preprocessor import preprocessor
 
 load_dotenv()
@@ -10,9 +11,9 @@ load_dotenv()
 
 def insert_records(name, records):
     for i in atpbar(range(len(records)), name=name):
-        if not lower_processed_record_exists(os.getenv('dataset'), records[i]):
+        if not record_exists(records[i], model=os.getenv('new_model')):
             records[i].text = preprocessor(records[i].text)
-            Lower_Processed_Corpus.create(id=records[i].id, text=records[i].text)
+            create_record(records[i], model=os.getenv('new_model'))
 
 
 def add_to_queue(records1, queue):

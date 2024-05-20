@@ -1,6 +1,7 @@
-from ir_measures import MAP, P, R, MRR
 import os
+
 from dotenv import load_dotenv
+from ir_measures import MAP, P, R, MRR
 
 load_dotenv()
 

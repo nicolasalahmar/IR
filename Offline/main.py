@@ -1,16 +1,18 @@
 import os
+
+from dotenv import load_dotenv
+
 from Helper.ORM import fetch_records
 from Helper.timing import Timing
 from Pipeline.Evaluation.eval import evaluate
 from Pipeline.index.index import Index
-from dotenv import load_dotenv
 
 load_dotenv()
 
 
 def create_index_and_save():
     # fetching new records
-    records = fetch_records(os.getenv('dataset'))
+    records = fetch_records()
     documents = [rec.text for rec in records]
     index = Index(records)
     index.save()
@@ -19,9 +21,10 @@ def create_index_and_save():
 
 if __name__ == '__main__':
     with Timing('Creating Index...'):
-        #index, documents = create_index_and_save()
+        # index, documents = create_index_and_save()
         index = Index.load(model_name=os.getenv("saved_model_name"), tfidf_name=os.getenv("saved_tfidf_name"), keys_name=os.getenv("saved_keys_name"))
-    #print(len(index.tfidf_matrix.toarray()))
+
+    # print(len(index.tfidf_matrix.toarray()))
 
     with Timing('Evaluating Documents...'):
         ev = evaluate(index, create_run_file_bool=True)
