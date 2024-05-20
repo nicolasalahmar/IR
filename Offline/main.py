@@ -24,7 +24,8 @@ if __name__ == '__main__':
         # index, documents = create_index_and_save()
         index = Index.load(model_name=os.getenv("saved_model_name"), tfidf_name=os.getenv("saved_tfidf_name"), keys_name=os.getenv("saved_keys_name"))
 
-    # print(len(index.tfidf_matrix.toarray()))
+    # print(index.tfidf_matrix.shape[1])
+
 
     with Timing('Evaluating Documents...'):
         ev = evaluate(index, create_run_file_bool=True)

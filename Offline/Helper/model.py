@@ -57,6 +57,40 @@ class Lower_Stopwords_Processed_Corpus(Model):
     class Meta:
         database = db
 
+class Lower_Stopwords_Stemmed_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_Stemmed_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+class Lower_Stopwords_Stemmed_NumWord_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_Stemmed_NumWord_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+
+class Lower_Stopwords_NumWord_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_NumWord_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
 
 def class_for_name(class_name, module_name='Helper.model'):
     try:
