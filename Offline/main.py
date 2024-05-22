@@ -2,6 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
+from Clustering import cluster_index
 from Helper.ORM import fetch_records
 from Helper.timing import Timing
 from Pipeline.Evaluation.eval import evaluate
@@ -21,15 +22,20 @@ def create_index_and_save():
 
 if __name__ == '__main__':
     with Timing('Creating Index...'):
-        # index, documents = create_index_and_save()
-        index = Index.load(model_name=os.getenv("saved_model_name"), tfidf_name=os.getenv("saved_tfidf_name"), keys_name=os.getenv("saved_keys_name"))
+        #index, documents = create_index_and_save()
+        index = Index.load(model_name=os.getenv("saved_model_name"), tfidf_name=os.getenv("saved_tfidf_name"),
+                           keys_name=os.getenv("saved_keys_name"))
 
     # print(index.tfidf_matrix.shape[1])
 
 
     with Timing('Evaluating Documents...'):
-        ev = evaluate(index, create_run_file_bool=True)
+        ev = evaluate(index, create_run_file_bool=False)
         print(ev)
+
+
+        cluster_index(index)
+
 
         # top_documents = index.search('IRAQ')
         # for idx, score in top_documents:

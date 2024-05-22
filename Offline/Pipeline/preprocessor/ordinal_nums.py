@@ -9,7 +9,7 @@ def replace_ordinal_numbers(tokens):
         if match:
             num, suffix = match.groups()
             num = int(num)
-            replaced_num = num2words(Decimal(str(num)), lang='en').replace(' ', '')
+            replaced_num = num2words(Decimal(str(num)), lang='en',ordinal=True).replace(' ', '')
             tokens[i] = replaced_num
     return tokens
 
