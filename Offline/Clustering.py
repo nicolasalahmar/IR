@@ -78,8 +78,12 @@ def plot_data_tsne(index, perplexity=30, learning_rate=200, n_iter=1000):
 def cluster_index(index):
 
     #Display Curve to find Elbow point
-    find_optimal_clusters(index.tfidf_matrix, 20)
+    #find_optimal_clusters(index.tfidf_matrix, 20)
 
     reduced_data,clusters = plot_data_pca(index)
+    silhouette_avg = silhouette_score(reduced_data, clusters)
+    print("Silhouette Score: ", silhouette_avg)
+
+    reduced_data,clusters = plot_data_tsne(index)
     silhouette_avg = silhouette_score(reduced_data, clusters)
     print("Silhouette Score: ", silhouette_avg)
