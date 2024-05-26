@@ -56,6 +56,8 @@ class Lower_Stopwords_Processed_Corpus(Model):
 
     class Meta:
         database = db
+
+
 class Lower_Stopwords_Countries_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
@@ -66,6 +68,8 @@ class Lower_Stopwords_Countries_Processed_Corpus(Model):
 
     class Meta:
         database = db
+
+
 class Lower_Stopwords_Countries_Numerize_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
@@ -76,6 +80,8 @@ class Lower_Stopwords_Countries_Numerize_Processed_Corpus(Model):
 
     class Meta:
         database = db
+
+
 class Lower_Stopwords_Countries_Numerize_Stem_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
@@ -86,6 +92,8 @@ class Lower_Stopwords_Countries_Numerize_Stem_Processed_Corpus(Model):
 
     class Meta:
         database = db
+
+
 class Lower_Stopwords_Countries_Numerize_Stem_Ordinal_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
@@ -96,6 +104,8 @@ class Lower_Stopwords_Countries_Numerize_Stem_Ordinal_Processed_Corpus(Model):
 
     class Meta:
         database = db
+
+
 class Lower_Stopwords_Countries_Numerize_Stem_Ordinal_Punc_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
@@ -103,6 +113,90 @@ class Lower_Stopwords_Countries_Numerize_Stem_Ordinal_Punc_Processed_Corpus(Mode
     @staticmethod
     def set_db(db):
         Lower_Stopwords_Countries_Numerize_Stem_Ordinal_Punc_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+
+class Lower_Stopwords_HTML_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_HTML_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+
+class Lower_Stopwords_HTML_Countries_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_HTML_Countries_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+
+class Lower_Stopwords_HTML_Countries_Numerize_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_HTML_Countries_Numerize_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+
+class Lower_Stopwords_HTML_Countries_Numerize_punct_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_HTML_Countries_Numerize_punct_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+
+
+class Lower_Stopwords_HTML_Countries_Numerize_punct_ord_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_HTML_Countries_Numerize_punct_ord_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+
+class Lower_Stopwords_HTML_Countries_Numerize_punct_ord_long_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_HTML_Countries_Numerize_punct_ord_long_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+class Lower_Stopwords_HTML_Countries_Numerize_punct_ord_long_stem_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_Stopwords_HTML_Countries_Numerize_punct_ord_long_stem_Processed_Corpus._meta.database = db
 
     class Meta:
         database = db

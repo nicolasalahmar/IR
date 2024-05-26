@@ -15,32 +15,30 @@ from Pipeline.preprocessor.tokenize import to_tokens, whitespace_tokenize, to_se
 
 def preprocessor(text):
     return pipe(text,
-                lower,
+                # lower,
+                #
+                # whitespace_tokenize,
+                # remove_stopwords,
+                # ' '.join,
 
-                whitespace_tokenize,
-                remove_stopwords,
-                ' '.join,
+                # clean_html,
 
-                clean_html,
-
-                to_sentences,
-                replace_countries,
-                ' '.join,
+                # to_sentences,
+                # replace_countries,
+                # ' '.join,
 
 
-                to_sentences,
-                numerize_text,
-                ' '.join,
+                # to_sentences,
+                # numerize_text,
+                # ' '.join,
 
                 to_tokens,
+                # replace_ordinal_numbers,
+                # remove_punctuation,
+                # remove_long_words,
                 stem,
-                replace_ordinal_numbers,
-                remove_punctuation,
-                remove_long_words,
                 remove_empty_tokens,
                 ' '.join,
-
-
                 )
 
 
