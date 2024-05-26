@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 from sklearn.decomposition import PCA
@@ -26,7 +25,6 @@ def find_optimal_clusters(data, max_k):
 
 
 def plot_data_pca(index):
-
     pca = PCA(n_components=2)
     reduced_data = pca.fit_transform(index.tfidf_matrix.toarray())
 
@@ -48,7 +46,7 @@ def plot_data_pca(index):
 
     plt.show()
 
-    return reduced_data,clusters
+    return reduced_data, clusters
 
 
 def plot_data_tsne(index, perplexity=30, learning_rate=200, n_iter=1000):
@@ -75,15 +73,15 @@ def plot_data_tsne(index, perplexity=30, learning_rate=200, n_iter=1000):
 
     return reduced_data, clusters
 
+
 def cluster_index(index):
+    # Display Curve to find Elbow point
+    # find_optimal_clusters(index.tfidf_matrix, 20)
 
-    #Display Curve to find Elbow point
-    #find_optimal_clusters(index.tfidf_matrix, 20)
-
-    reduced_data,clusters = plot_data_pca(index)
+    reduced_data, clusters = plot_data_pca(index)
     silhouette_avg = silhouette_score(reduced_data, clusters)
     print("Silhouette Score: ", silhouette_avg)
 
-    reduced_data,clusters = plot_data_tsne(index)
+    reduced_data, clusters = plot_data_tsne(index)
     silhouette_avg = silhouette_score(reduced_data, clusters)
     print("Silhouette Score: ", silhouette_avg)

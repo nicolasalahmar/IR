@@ -1,5 +1,6 @@
 import os
 
+import peewee
 from atpbar import atpbar
 from dotenv import load_dotenv
 
@@ -13,7 +14,10 @@ def insert_records(name, records):
     for i in atpbar(range(len(records)), name=name):
         if not record_exists(records[i], model=os.getenv('new_model')):
             records[i].text = preprocessor(records[i].text)
-            create_record(records[i], model=os.getenv('new_model'))
+            try:
+                create_record(records[i], model=os.getenv('new_model'))
+            except peewee.OperationalError:
+                create_record(records[i], model=os.getenv('new_model'))
 
 
 def add_to_queue(records1, queue):
