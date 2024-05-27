@@ -13,10 +13,11 @@ def find_similarities(query_vector, index):
     return sorted_indices, cosine_similarities
 
 
-def get_top_docs(sorted_indices, cosine_similarities, keys, top_n=11):
+def get_top_docs(sorted_indices, cosine_similarities, keys, threshold, top_n=11):
     lst = []
     counter = 0
     for idx in sorted_indices[:top_n]:
-        lst.append((keys[idx], cosine_similarities[idx], counter))
-        counter += 1
+        if cosine_similarities[idx] > float(threshold):
+            lst.append((keys[idx], cosine_similarities[idx], counter))
+            counter += 1
     return lst

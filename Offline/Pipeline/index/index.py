@@ -1,11 +1,15 @@
+import os
 import pickle
 
 import pandas as pd
+from dotenv import load_dotenv
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from Pipeline.matching_ranking.match import find_similarities, get_top_docs
 from Pipeline.preprocessor.preprocessor import preprocessor
 from Pipeline.preprocessor.tokenize import to_tokens
+
+load_dotenv()
 
 
 class Index:
@@ -40,11 +44,11 @@ class Index:
         i.keys = pickle.load(open(keys_name, 'rb'))
         return i
 
-    def search(self, query):
+    def search(self, query, threshold=os.getenv('threshold')):
         # preprocess the query create the query vector
         query_vector = self.initialize_query(query)
         sorted_indices, cosine_similarities = find_similarities(query_vector, self)
-        return get_top_docs(sorted_indices, cosine_similarities, self.keys)
+        return get_top_docs(sorted_indices, cosine_similarities, self.keys, threshold)
 
     def initialize_query(self, text):
         preprocessed_query = preprocessor(text)
