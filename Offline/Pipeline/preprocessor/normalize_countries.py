@@ -1,34 +1,25 @@
 from country_named_entity_recognition import find_countries
 
 
-def handle_sentence(text):
-    abbreviations = {
-        "u.s.a.": "unitedstates",
-        "u.s.a":"unitedstates",
-    }
+def replace_GPE(text, entity, offset):
+    country = find_countries(entity.text, True)
+    beg, end = entity.start_char, entity.end_char
+    if country:
+        unified_country_name = country[0][0].name.replace(' ', '')
+        res = text[:beg + offset] + unified_country_name + text[end + offset:]
+        og_len = len(entity.text)
+        new_len = len(unified_country_name)
+        offset = (new_len - og_len) + offset
+        return res, offset
+    else:
+        return text, offset
 
 
-    for abbrev, full_form in abbreviations.items():
-        text = text.replace(abbrev, full_form)
-
-    countries = find_countries(text,True)
-
-    replacements = {country[1].group(): country[0].name for country in countries}
-
-    for country_name, original_name in replacements.items():
-        original_name = original_name.replace(" ", "").lower()
-        text = text.replace(country_name, original_name)
+def replace_countries(nlp_text):
+    text, entities = nlp_text
+    offset = 0
+    for entity in entities:
+        if entity.label_ == 'GPE':
+            text, offset = replace_GPE(text, entity, offset)
 
     return text
-
-
-def replace_countries(sentences):
-    corrected_sentences = []
-    for sentence in sentences:
-        corrected_sentences.append(handle_sentence(sentence))
-    return corrected_sentences
-
-#
-# sentences =["u.s.a","u.s.a."]
-# new_text = replace_countries(sentences)
-# print(new_text)
