@@ -16,6 +16,5 @@ beautifulsoup4~=4.11.1
 spacy~=3.7.4
 numerizer~=0.2.3
 tldextract~=5.1.2
-redis~=5.1.0b5
 pyspark~=3.5.1
 matplotlib~=3.9.0
