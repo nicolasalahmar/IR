@@ -12,7 +12,7 @@ def to_tokens(text):
     for i, token in enumerate(tokens):
         if token == 'EMAIL_ADDRESS':
             tokens[i] = emails.pop(0)
-        if token == 'URL':
+        if token == 'URL' and urls:
             tokens[i] = urls.pop(0)
 
     return tokens

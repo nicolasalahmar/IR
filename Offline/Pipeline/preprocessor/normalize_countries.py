@@ -1,5 +1,7 @@
 from country_named_entity_recognition import find_countries
 
+from Pipeline.preprocessor import nlp
+
 
 def replace_GPE(text, entity, offset):
     country = find_countries(entity.text, True)
@@ -15,11 +17,13 @@ def replace_GPE(text, entity, offset):
         return text, offset
 
 
-def replace_countries(nlp_text):
-    text, entities = nlp_text
+def replace_countries(text):
+    nlp_text = nlp(text)
+    entities = nlp_text.ents
     offset = 0
     for entity in entities:
         if entity.label_ == 'GPE':
             text, offset = replace_GPE(text, entity, offset)
+
 
     return text
