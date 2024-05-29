@@ -142,6 +142,30 @@ class Lower_Stopwords_HTML_Countries_Processed_Corpus(Model):
         database = db
 
 
+
+class Lower_countries_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        Lower_countries_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+class org_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        org_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+
 class Lower_Stopwords_HTML_Countries_Numerize_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)

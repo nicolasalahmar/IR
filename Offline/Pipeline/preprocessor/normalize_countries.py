@@ -3,18 +3,29 @@ from country_named_entity_recognition import find_countries
 from Pipeline.preprocessor import nlp
 
 
-def replace_GPE(text, entity, offset):
-    country = find_countries(entity.text, True)
-    beg, end = entity.start_char, entity.end_char
+def replace_cner(sample):
+    country = find_countries(sample, True)
     if country:
-        unified_country_name = country[0][0].name.replace(' ', '')
-        res = text[:beg + offset] + unified_country_name + text[end + offset:]
-        og_len = len(entity.text)
-        new_len = len(unified_country_name)
-        offset = (new_len - og_len) + offset
-        return res, offset
+        new_name = country[0][0].name.replace(' ', '')
+        matched = country[0][1].group()
+        sample = sample.replace(matched, new_name)
+        return sample
     else:
-        return text, offset
+        return sample
+
+
+
+def replace_Spacy(text, entity, offset):
+    beg, end = entity.start_char, entity.end_char
+
+    substring = text[beg + offset:end + offset]
+    new_text = replace_cner(substring)
+
+    res = text[:beg + offset] + new_text + text[end + offset:]
+    og_len = len(entity.text)
+    new_len = len(new_text)
+    offset = (new_len - og_len) + offset
+    return res, offset
 
 
 def replace_countries(text):
@@ -23,7 +34,6 @@ def replace_countries(text):
     offset = 0
     for entity in entities:
         if entity.label_ == 'GPE':
-            text, offset = replace_GPE(text, entity, offset)
-
+            text, offset = replace_Spacy(text, entity, offset)
 
     return text

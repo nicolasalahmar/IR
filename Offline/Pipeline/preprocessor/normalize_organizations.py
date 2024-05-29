@@ -4,9 +4,8 @@ from Pipeline.preprocessor import nlp
 
 
 def replace_ORG(text, entity, offset):
-
     beg, end = entity.start_char, entity.end_char
-    replacement = entity.text + "_org"
+    replacement = entity.text.replace(' ', '_') + "_org"
 
     res = text[:beg + offset] + replacement + text[end + offset:]
     og_len = len(entity.text)
@@ -14,7 +13,6 @@ def replace_ORG(text, entity, offset):
     offset = (new_len - og_len) + offset
 
     return res, offset
-
 
 
 def replace_organisations(text):
