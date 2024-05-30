@@ -154,6 +154,29 @@ class Lower_countries_Processed_Corpus(Model):
     class Meta:
         database = db
 
+
+class countries_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        countries_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
+class countries_dates_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        countries_dates_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
 class org_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
