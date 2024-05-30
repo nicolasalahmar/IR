@@ -6,8 +6,8 @@ import ir_measures
 from atpbar import find_reporter, flush, atpbar
 from dotenv import load_dotenv
 
-from Manual.intermediary_dataset.insert import split_arr
-from Manual.intermediary_dataset.multiprocess import start_processes, join_queue
+from Offline.Manual.intermediary_dataset.insert import split_arr
+from Offline.Manual.intermediary_dataset.multiprocess import start_processes, join_queue
 from ir_measures import MAP, P, R, MRR
 
 load_dotenv()

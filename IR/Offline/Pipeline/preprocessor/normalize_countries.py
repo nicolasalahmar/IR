@@ -1,6 +1,6 @@
 from country_named_entity_recognition import find_countries
 
-from Pipeline.preprocessor import nlp
+from Offline.Pipeline.preprocessor import nlp
 
 
 def replace_cner(sample):

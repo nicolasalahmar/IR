@@ -4,8 +4,8 @@ import peewee
 from atpbar import atpbar
 from dotenv import load_dotenv
 
-from Helper.ORM import create_record, record_exists
-from Pipeline.preprocessor.preprocessor import preprocessor
+from Offline.Helper.ORM import create_record, record_exists
+from Offline.Pipeline.preprocessor.preprocessor import preprocessor
 
 load_dotenv()
 

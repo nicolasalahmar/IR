@@ -4,7 +4,7 @@ import sqlite3
 from dotenv import load_dotenv
 from peewee import SqliteDatabase
 
-from Helper.model import class_for_name
+from .model import class_for_name
 
 load_dotenv()
 ds = os.getenv('dataset')

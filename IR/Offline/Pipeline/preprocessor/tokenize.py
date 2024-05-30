@@ -1,6 +1,6 @@
 from nltk import word_tokenize, sent_tokenize
-from Pipeline.preprocessor.find_email import find_email
-from Pipeline.preprocessor.find_url import find_url
+from Offline.Pipeline.preprocessor.find_email import find_email
+from Offline.Pipeline.preprocessor.find_url import find_url
 from nltk.tokenize import WhitespaceTokenizer
 
 

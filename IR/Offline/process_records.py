@@ -4,10 +4,10 @@ import os
 from atpbar import find_reporter, flush
 from dotenv import load_dotenv
 
-from Helper.ORM import fetch_records, create_table
-from Helper.timing import Timing
-from Manual.intermediary_dataset.insert import split_arr, insert_records, add_to_queue
-from Manual.intermediary_dataset.multiprocess import start_processes, join_queue
+from Offline.Helper.ORM import fetch_records, create_table
+from Offline.Helper.timing import Timing
+from Offline.Manual.intermediary_dataset.insert import split_arr, insert_records, add_to_queue
+from Offline.Manual.intermediary_dataset.multiprocess import start_processes, join_queue
 
 load_dotenv()
 

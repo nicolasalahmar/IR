@@ -1,4 +1,4 @@
-from Pipeline.preprocessor import spell
+from Offline.Pipeline.preprocessor import spell
 from typing import List
 from spellchecker import SpellChecker
 

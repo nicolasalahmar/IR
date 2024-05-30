@@ -1,6 +1,6 @@
 import numerizer
 
-from Pipeline.preprocessor import nlp
+from Offline.Pipeline.preprocessor import nlp
 
 
 def numerize_text(sentences):

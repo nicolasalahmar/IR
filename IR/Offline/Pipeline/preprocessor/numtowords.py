@@ -3,7 +3,7 @@ import re
 from num2words import num2words
 from decimal import Decimal
 
-from Pipeline.preprocessor.tokenize import to_tokens
+from Offline.Pipeline.preprocessor.tokenize import to_tokens
 
 unit_map = {
     # Length

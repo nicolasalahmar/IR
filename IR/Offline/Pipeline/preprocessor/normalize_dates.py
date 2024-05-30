@@ -2,7 +2,7 @@ import datetime
 
 from dateutil.parser import parse, ParserError
 
-from Pipeline.preprocessor import nlp, default_date
+from Offline.Pipeline.preprocessor import nlp, default_date
 
 
 def replace_DATE(text, entity, offset):

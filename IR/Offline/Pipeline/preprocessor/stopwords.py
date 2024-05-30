@@ -1,4 +1,4 @@
-from Pipeline.preprocessor import stop_words
+from Offline.Pipeline.preprocessor import stop_words
 
 
 def remove_stopwords(tokens):

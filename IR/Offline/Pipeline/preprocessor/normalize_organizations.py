@@ -1,6 +1,6 @@
 import re
 
-from Pipeline.preprocessor import nlp
+from Offline.Pipeline.preprocessor import nlp
 
 
 def replace_ORG(text, entity, offset):

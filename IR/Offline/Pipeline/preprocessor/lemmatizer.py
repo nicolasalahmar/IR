@@ -1,7 +1,7 @@
 from nltk import pos_tag
 from nltk.corpus import wordnet
 
-from Pipeline.preprocessor import lemmatizer
+from Offline.Pipeline.preprocessor import lemmatizer
 
 
 def lemmatize(tokens):

@@ -1,4 +1,4 @@
-from Pipeline.preprocessor import nlp
+from Offline.Pipeline.preprocessor import nlp
 
 
 def NER(text):
