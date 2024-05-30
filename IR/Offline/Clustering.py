@@ -24,9 +24,13 @@ def find_optimal_clusters(data, max_k):
     ax.set_title('SSE by Cluster Center Plot')
 
 
-def plot_data_pca(index):
-    pca = PCA(n_components=2)
-    reduced_data = pca.fit_transform(index.tfidf_matrix.toarray())
+def plot_data(index, algo='pca', perplexity=30, learning_rate=200, n_iter=1000):
+    if algo == 'tsne':
+        tsne = TSNE(n_components=2, perplexity=perplexity, learning_rate=learning_rate, n_iter=n_iter, random_state=20)
+        reduced_data = tsne.fit_transform(index.tfidf_matrix.toarray())
+    else:
+        pca = PCA(n_components=2, svd_solver='arpack')
+        reduced_data = pca.fit_transform(index.tfidf_matrix)
 
     kmeans = MiniBatchKMeans(n_clusters=4, init_size=5000, batch_size=10000, random_state=20)
     clusters = kmeans.fit_predict(reduced_data)
@@ -49,39 +53,14 @@ def plot_data_pca(index):
     return reduced_data, clusters
 
 
-def plot_data_tsne(index, perplexity=30, learning_rate=200, n_iter=1000):
-    tsne = TSNE(n_components=2, perplexity=perplexity, learning_rate=learning_rate, n_iter=n_iter, random_state=20)
-    reduced_data = tsne.fit_transform(index.tfidf_matrix.toarray())
-
-    kmeans = MiniBatchKMeans(n_clusters=4, init_size=5000, batch_size=10000, random_state=20)
-    clusters = kmeans.fit_predict(reduced_data)
-
-    max_label = max(clusters)
-
-    idx = np.random.choice(range(reduced_data.shape[0]), size=300, replace=False)
-    label_subset = clusters[idx]
-    label_subset = [cm.hsv(i / max_label) for i in label_subset]
-
-    f, ax = plt.subplots(1, 1, figsize=(7, 7))
-
-    ax.scatter(reduced_data[idx, 0], reduced_data[idx, 1], c=label_subset)
-    ax.set_title('t-SNE Cluster Plot')
-    ax.set_xlabel('Component 1')
-    ax.set_ylabel('Component 2')
-
-    plt.show()
-
-    return reduced_data, clusters
-
-
 def cluster_index(index):
     # Display Curve to find Elbow point
     # find_optimal_clusters(index.tfidf_matrix, 20)
 
-    reduced_data, clusters = plot_data_pca(index)
+    reduced_data, clusters = plot_data(index)
     silhouette_avg = silhouette_score(reduced_data, clusters)
     print("Silhouette Score: ", silhouette_avg)
 
-    reduced_data, clusters = plot_data_tsne(index)
+    reduced_data, clusters = plot_data(index, algo='tsne')
     silhouette_avg = silhouette_score(reduced_data, clusters)
     print("Silhouette Score: ", silhouette_avg)
