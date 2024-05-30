@@ -142,7 +142,6 @@ class Lower_Stopwords_HTML_Countries_Processed_Corpus(Model):
         database = db
 
 
-
 class Lower_countries_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
@@ -166,6 +165,7 @@ class countries_Processed_Corpus(Model):
     class Meta:
         database = db
 
+
 class countries_dates_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
@@ -176,6 +176,7 @@ class countries_dates_Processed_Corpus(Model):
 
     class Meta:
         database = db
+
 
 class org_Processed_Corpus(Model):
     id = CharField(primary_key=True)
@@ -213,7 +214,6 @@ class Lower_Stopwords_HTML_Countries_Numerize_punct_Processed_Corpus(Model):
         database = db
 
 
-
 class Lower_Stopwords_HTML_Countries_Numerize_punct_ord_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
@@ -237,6 +237,7 @@ class Lower_Stopwords_HTML_Countries_Numerize_punct_ord_long_Processed_Corpus(Mo
     class Meta:
         database = db
 
+
 class Lower_Stopwords_HTML_Countries_Numerize_punct_ord_long_stem_Processed_Corpus(Model):
     id = CharField(primary_key=True)
     text = CharField(unique=True)
@@ -249,7 +250,7 @@ class Lower_Stopwords_HTML_Countries_Numerize_punct_ord_long_stem_Processed_Corp
         database = db
 
 
-def class_for_name(class_name, module_name='Helper.model'):
+def class_for_name(class_name, module_name='Offline.Helper.model'):
     try:
         m = importlib.import_module(module_name)
         c = getattr(m, class_name)

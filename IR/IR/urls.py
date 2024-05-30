@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from Search.views import Search
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('search/<str:dataset>/<str:search_field>', Search.as_view()),
 ]

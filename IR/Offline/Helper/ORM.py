@@ -38,6 +38,13 @@ def record_exists(record, model=os.getenv('model')):
     return c.select().where(c.id == record.id).exists()
 
 
+def get_record(doc_id, model=os.getenv('model')):
+    c = class_for_name(model)
+    change_db(ds)
+
+    return c.select().where(c.id == doc_id)[0]
+
+
 def create_record(record, model=os.getenv('model')):
     c = class_for_name(model)
     change_db(ds)
