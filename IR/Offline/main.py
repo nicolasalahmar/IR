@@ -11,32 +11,32 @@ from Pipeline.index.index import Index
 load_dotenv()
 
 
-# def create_index_and_save():
-#     # fetching new records
-#     records = fetch_records(model='Lower_Processed')
-#     documents = [rec.text for rec in records]
-#     index = Index(records)
-#     index.save()
-#     return index, documents
+def create_index_and_save():
+    # fetching new records
+    records = fetch_records(model='countries_dates_Processed_Corpus')
+    documents = [rec.text for rec in records]
+    index = Index(records)
+    index.save()
+    return index, documents
 
 
 if __name__ == '__main__':
     with Timing('Creating Index...'):
         # index, documents = create_index_and_save()
         index = Index.load(
-            model_name="Pipeline/index/Saved/Lower_Stopwords_HTML_Processed/wiki_model369721.pickle",
-            tfidf_name="Pipeline/index/Saved/Lower_Stopwords_HTML_Processed/wiki_tfidf369721.pickle",
-            keys_name="Pipeline/index/Saved/Lower_Stopwords_HTML_Processed/wiki_keys369721.pickle")
+            model_name="Pipeline/index/Saved/Wiki/countries_dates/model369721.pickle",
+            tfidf_name="Pipeline/index/Saved/Wiki/countries_dates/tfidf369721.pickle",
+            keys_name="Pipeline/index/Saved/Wiki/countries_dates/keys369721.pickle")
 
     print(index.tfidf_matrix.shape[1])
 
     with Timing('Evaluating Documents...'):
         ev = evaluate(index,
-                      rel=1,
+                      rel=2,
                       qrels_path="Pipeline/Evaluation/Wiki/qrels_wiki",
                       queries_path="Pipeline/Evaluation/Wiki/queries.csv",
-                      run_path="Pipeline/Evaluation/Wiki/run_wiki_lower_stop_html2",
-                      create_run_file_bool=True)
+                      run_path="Pipeline/Evaluation/Wiki/run_wiki_countries_dates",
+                      create_run_file_bool=False)
         ev.update((x, y * 100) for x, y in ev.items())
         print(ev)
 
