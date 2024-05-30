@@ -12,6 +12,8 @@ def replace_DATE(text, entity, offset):
         replacement = dt.strftime('%d%m%Y') + " " + dt.strftime('%Y') + " "+ dt.strftime('%B') + " " + dt.strftime('%B%d')
     except ParserError:
         replacement = entity.text
+    except OverflowError:
+        replacement = entity.text
     res = text[:beg + offset] + replacement + text[end + offset:]
     og_len = len(entity.text)
     new_len = len(replacement)
@@ -33,5 +35,5 @@ def replace_dates(text):
 
 
 if __name__ == "__main__":
-    s = 'in March ballen acquired the interest of goode and became'
+    s = '4710025007'
     print(replace_dates(s))
