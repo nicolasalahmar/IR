@@ -17,6 +17,6 @@ wiki_index = Index.load(*get_index('wiki'))
 # antique_index = Index.load(model_name=model_name, tfidf_name=tfidf_name, keys_name=keys_name)
 
 indexes = {
-    'wiki': wiki_index,
+    'wikir': wiki_index,
     # 'antique': antique_index
 }

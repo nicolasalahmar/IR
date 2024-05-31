@@ -40,7 +40,13 @@ INSTALLED_APPS = [
     "Search.apps.SearchConfig"
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://ir-front-fifth-year1-3ee237cd52fa671590542bd9c4788d221d76d28d4f.gitlab.io/",
+    'http://localhost:5173/'
+]
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

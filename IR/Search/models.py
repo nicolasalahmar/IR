@@ -3,7 +3,7 @@ from django.db import models
 
 class SearchRequest(models.Model):
     DS_CHOICES = (
-        ('wiki', 'wiki'),
+        ('wikir', 'wikir'),
         ('antique', 'antique'),
     )
 
