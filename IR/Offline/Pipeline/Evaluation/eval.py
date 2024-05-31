@@ -57,7 +57,7 @@ def create_run_file(index, run_path, queries_path):
 
 def write_to_run_file(name, queries, index, run_path):
     for i in atpbar(range(len(queries)), name=name):
-        res = index.search(queries[i][1])
+        res = index.search(queries[i][1], top_n=31)
         str = ''
         for doc_no, score, rank in res:
             str = str + f'{queries[i][0]} 0 {doc_no} {rank} {score} IR\n'

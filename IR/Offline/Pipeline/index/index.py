@@ -44,11 +44,11 @@ class Index:
         i.keys = pickle.load(open(keys_name, 'rb'))
         return i
 
-    def search(self, query, threshold=os.getenv('threshold')):
+    def search(self, query, threshold=os.getenv('threshold'), top_n=11):
         # preprocess the query create the query vector
         query_vector = self.initialize_query(query)
         sorted_indices, cosine_similarities = find_similarities(query_vector, self)
-        return get_top_docs(sorted_indices, cosine_similarities, self.keys, threshold)
+        return get_top_docs(sorted_indices, cosine_similarities, self.keys, threshold, top_n=top_n)
 
     def initialize_query(self, text):
         preprocessed_query = preprocessor(text)
