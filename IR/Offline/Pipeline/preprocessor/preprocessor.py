@@ -1,12 +1,10 @@
 from toolz import pipe
 
-from Offline.Pipeline.preprocessor.NER import NER
 from Offline.Pipeline.preprocessor.empty_tokens import remove_empty_tokens
 from Offline.Pipeline.preprocessor.html import clean_html
 from Offline.Pipeline.preprocessor.lower import lower
 from Offline.Pipeline.preprocessor.normalize_countries import replace_countries
 from Offline.Pipeline.preprocessor.normalize_dates import replace_dates
-from Offline.Pipeline.preprocessor.normalize_organizations import replace_organisations
 from Offline.Pipeline.preprocessor.numerize import numerize_text
 from Offline.Pipeline.preprocessor.punctuation import remove_punctuation
 from Offline.Pipeline.preprocessor.remove_long_words import remove_long_words
