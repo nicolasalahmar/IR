@@ -82,7 +82,7 @@ export function SearchEngineModule() {
     searchResultView = (
       <div className="flex flex-col gap-4 w-1/2 md:w-full">
         {searchResultData.data
-          .sort(({ rank: rankA }, { rank: rankB }) => rankA - rankB)
+          //.sort(({ rank: rankA }, { rank: rankB }) => rankA - rankB)
           .map((searchResult) => (
             <SearchResultItem key={searchResult.rank} {...searchResult} />
           ))}
