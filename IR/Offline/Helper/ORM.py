@@ -15,7 +15,7 @@ def change_db(ds, model=os.getenv('model')):
     c.set_db(SqliteDatabase(ds))
 
 
-def fetch_records(model=os.getenv('model'), limit=None):
+def fetch_records(model=os.getenv('model'), ds=os.getenv('dataset'), limit=None):
     c = class_for_name(model)
     change_db(ds)
     if limit:
