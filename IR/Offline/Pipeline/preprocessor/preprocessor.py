@@ -6,6 +6,7 @@ from Offline.Pipeline.preprocessor.lower import lower
 from Offline.Pipeline.preprocessor.normalize_countries import replace_countries
 from Offline.Pipeline.preprocessor.normalize_dates import replace_dates
 from Offline.Pipeline.preprocessor.numerize import numerize_text
+from Offline.Pipeline.preprocessor.ordinal_nums import replace_ordinal_numbers
 from Offline.Pipeline.preprocessor.punctuation import remove_punctuation
 from Offline.Pipeline.preprocessor.remove_long_words import remove_long_words
 from Offline.Pipeline.preprocessor.stemmer import stem
@@ -20,7 +21,7 @@ def preprocessor(text):
 
                 # replace_countries,
                 # replace_dates,
-                # number normalization (modify numerize)
+                # numerize_text,
 
 
                 # lower,
@@ -30,7 +31,7 @@ def preprocessor(text):
                 # ' '.join,
 
                 # to_tokens,
-                # ordinal numbers normalization
+                # replace_ordinal_numbers,
                 # remove_punctuation,
                 # remove_long_words,
                 # stem,

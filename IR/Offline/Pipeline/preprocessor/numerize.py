@@ -6,7 +6,7 @@ from Offline.Pipeline.preprocessor import nlp
 def replace_number(text, entity, offset):
     beg, end = entity.start_char, entity.end_char
     try:
-        replacement = numerizer.numerize(text)
+        replacement = numerizer.numerize(entity.text)
     except ZeroDivisionError:
         replacement = entity.text
     except Exception:
@@ -18,17 +18,19 @@ def replace_number(text, entity, offset):
 
     return res, offset
 
+
 def numerize_text(text):
     nlp_text = nlp(text)
     entities = nlp_text.ents
 
     offset = 0
     for entity in entities:
-        print(entity.label,entity.text)
+        print(entity.label_, entity.text)
         if entity.label_ == 'CARDINAL':
             text, offset = replace_number(text, entity, offset)
 
     return text
+
 
 if __name__ == "__main__":
     s = 'ten'

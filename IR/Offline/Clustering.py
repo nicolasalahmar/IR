@@ -1,8 +1,9 @@
+import pickle
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 from sklearn.decomposition import PCA
-from sklearn.manifold import TSNE
 from sklearn.cluster import MiniBatchKMeans
 from sklearn.metrics import silhouette_score
 
@@ -12,8 +13,10 @@ def find_optimal_clusters(data, max_k):
 
     sse = []
     for k in iters:
-        sse.append(MiniBatchKMeans(n_clusters=k, init_size=5000, batch_size=10000, random_state=20).fit(data).inertia_)
+        sse.append(MiniBatchKMeans(n_clusters=k, init_size=400000, batch_size=800000, random_state=20).fit(data).inertia_)
         print('Fit {} clusters'.format(k))
+
+    pickle.dump(sse, open('sse.pickle', 'wb'))
 
     f, ax = plt.subplots(1, 1)
     ax.plot(iters, sse, marker='o')
@@ -23,16 +26,15 @@ def find_optimal_clusters(data, max_k):
     ax.set_ylabel('SSE')
     ax.set_title('SSE by Cluster Center Plot')
 
+    plt.savefig('optimal.png')
+    plt.show()
 
-def plot_data(index, algo='pca', perplexity=30, learning_rate=200, n_iter=1000):
-    if algo == 'tsne':
-        tsne = TSNE(n_components=2, perplexity=perplexity, learning_rate=learning_rate, n_iter=n_iter, random_state=20)
-        reduced_data = tsne.fit_transform(index.tfidf_matrix.toarray())
-    else:
-        pca = PCA(n_components=2, svd_solver='arpack')
-        reduced_data = pca.fit_transform(index.tfidf_matrix)
 
-    kmeans = MiniBatchKMeans(n_clusters=4, init_size=5000, batch_size=10000, random_state=20)
+def plot_data(index, n_clusters=2):
+    pca = PCA(n_components=2, svd_solver='arpack')
+    reduced_data = pca.fit_transform(index.tfidf_matrix)
+
+    kmeans = MiniBatchKMeans(n_clusters=n_clusters, init_size=400000, batch_size=800000, random_state=20)
     clusters = kmeans.fit_predict(reduced_data)
 
     max_label = max(clusters)
@@ -48,7 +50,8 @@ def plot_data(index, algo='pca', perplexity=30, learning_rate=200, n_iter=1000):
     ax.set_xlabel('Principal Component 1')
     ax.set_ylabel('Principal Component 2')
 
-    plt.show()
+    plt.savefig('clusters.png')
+    # plt.show()
 
     return reduced_data, clusters
 
@@ -57,10 +60,6 @@ def cluster_index(index):
     # Display Curve to find Elbow point
     # find_optimal_clusters(index.tfidf_matrix, 20)
 
-    reduced_data, clusters = plot_data(index)
-    silhouette_avg = silhouette_score(reduced_data, clusters)
-    print("Silhouette Score: ", silhouette_avg)
-
-    reduced_data, clusters = plot_data(index, algo='tsne')
+    reduced_data, clusters = plot_data(index, n_clusters=4)
     silhouette_avg = silhouette_score(reduced_data, clusters)
     print("Silhouette Score: ", silhouette_avg)
