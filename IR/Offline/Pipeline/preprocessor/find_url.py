@@ -17,3 +17,8 @@ def find_url(text):
     text_with_url_placeholder = re.sub(url_pattern, 'URL', text)
 
     return root_domains, text_with_url_placeholder
+
+
+def find_full_urls(text):
+    urls = re.findall("(?P<url>https?://[^\s]+)", text)
+    return urls
