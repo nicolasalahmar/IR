@@ -25,7 +25,6 @@ def numerize_text(text):
 
     offset = 0
     for entity in entities:
-        print(entity.label_, entity.text)
         if entity.label_ == 'CARDINAL':
             text, offset = replace_number(text, entity, offset)
 

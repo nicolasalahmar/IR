@@ -261,6 +261,17 @@ class countries_dates_ord_Processed_Corpus(Model):
     class Meta:
         database = db
 
+class countries_dates_ord_num_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        countries_dates_ord_num_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
 
 def class_for_name(class_name, module_name='Offline.Helper.model'):
     try:
