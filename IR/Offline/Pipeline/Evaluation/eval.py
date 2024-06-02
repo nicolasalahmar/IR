@@ -13,7 +13,7 @@ from ir_measures import MAP, P, R, MRR
 load_dotenv()
 
 
-def evaluate(index, rel=1, qrels_path=os.getenv("qrels_path"), queries_path=os.getenv("queries_path"), run_path=os.getenv("run_path"), create_run_file_bool=False):
+def evaluate(index, rel=1, qrels_path=os.getenv("qrels_path"), queries_path=os.getenv("queries_path"), run_path=os.getenv("run_path"), create_run_file_bool=False, metrics_path=None):
     qrels = ir_measures.read_trec_qrels(qrels_path)
 
     if create_run_file_bool:
@@ -22,6 +22,12 @@ def evaluate(index, rel=1, qrels_path=os.getenv("qrels_path"), queries_path=os.g
     run = ir_measures.read_trec_run(run_path)
 
     measures = [MAP(rel=rel), P @ 10, R @ 10, MRR(rel=rel)]
+
+    if metrics_path:
+        f = open(metrics_path, 'a')
+        for metric in ir_measures.iter_calc(measures, qrels, run):
+            f.write(str(metric) + '\n')
+        f.close()
 
     return ir_measures.calc_aggregate(measures, qrels, run)
 
