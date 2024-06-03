@@ -38,7 +38,7 @@ def record_exists(record, model=os.getenv('model')):
     return c.select().where(c.id == record.id).exists()
 
 
-def get_record(doc_id, model=os.getenv('model')):
+def get_record(doc_id, model=os.getenv('model'), ds=os.getenv('dataset')):
     c = class_for_name(model)
     change_db(ds)
 

@@ -5,17 +5,17 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from Offline.Helper.ORM import get_record
-from Search import get_index, indexes
+from Search import get_index, indexes, datasets
 from Search.serializers import SearchRequestSerializer
 
 from Offline.Pipeline.index.index import Index
 
 
 class Search(APIView):
-    def get_docs(self, top_documents):
+    def get_docs(self, top_documents, ds):
         arr = []
         for i in range(len(top_documents)):
-            rec = get_record(top_documents[i][0], model='Corpus')
+            rec = get_record(top_documents[i][0], model='Corpus', ds=ds)
             res = {'doc_id': top_documents[i][0], 'score': top_documents[i][1], 'rank': top_documents[i][2],
                    'text': rec.text}
             arr.append(res)
@@ -32,7 +32,7 @@ class Search(APIView):
 
             top_documents = index.search(search_field)
 
-            top_documents = self.get_docs(top_documents)
+            top_documents = self.get_docs(top_documents, datasets[chosen_dataset])
 
             return Response(top_documents)
         else:
