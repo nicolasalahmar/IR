@@ -30,11 +30,11 @@ def find_optimal_clusters(data, max_k):
     plt.show()
 
 
-def plot_data(index, n_clusters=2):
+def plot_data(index, n_clusters=4, init_size=400000, batch_size=800000,  random_state=20):
     pca = PCA(n_components=2, svd_solver='arpack')
     reduced_data = pca.fit_transform(index.tfidf_matrix)
 
-    kmeans = MiniBatchKMeans(n_clusters=n_clusters, init_size=400000, batch_size=800000, random_state=20)
+    kmeans = MiniBatchKMeans(n_clusters=n_clusters, init_size=init_size, batch_size=batch_size, random_state=random_state)
     clusters = kmeans.fit_predict(reduced_data)
 
     max_label = max(clusters)
@@ -56,10 +56,10 @@ def plot_data(index, n_clusters=2):
     return reduced_data, clusters
 
 
-def cluster_index(index):
+def cluster_index(index, n_clusters=4, init_size=400000, batch_size=800000,  random_state=20):
     # Display Curve to find Elbow point
     # find_optimal_clusters(index.tfidf_matrix, 20)
 
-    reduced_data, clusters = plot_data(index, n_clusters=4)
+    reduced_data, clusters = plot_data(index, n_clusters=n_clusters, init_size=init_size, batch_size=batch_size,  random_state=random_state)
     silhouette_avg = silhouette_score(reduced_data, clusters)
     print("Silhouette Score: ", silhouette_avg)

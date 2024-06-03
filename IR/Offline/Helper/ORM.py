@@ -50,3 +50,17 @@ def create_record(record, model=os.getenv('model')):
     change_db(ds)
     change_db(ds, model=os.getenv('new_model'))
     t = c.create(id=record.id, text=record.text)
+
+
+def insert_record_from_crawler(id, text, model=os.getenv('model')):
+    c = class_for_name(model)
+    change_db(ds)
+    change_db(ds, model=os.getenv('model'))
+    t = c.create(id=id, text=text)
+
+
+def insert_record_from_crawler(id, text, model=os.getenv('model')):
+    c = class_for_name(model)
+    change_db(ds)
+    change_db(ds, model=os.getenv('model'))
+    t = c.create(id=id, text=text)

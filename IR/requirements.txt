@@ -23,4 +23,5 @@ matplotlib~=3.9.0
 python-dateutil~=2.8.2
 redis~=5.1.0b5
 Scrapy~=2.11.2
+scrapy-redis~=0.7.3
 itemadapter~=0.9.0

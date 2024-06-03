@@ -1,12 +1,9 @@
-import twisted
 from scrapy.utils.project import get_project_settings
 from scrapy_redis.spiders import RedisCrawlSpider
 from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
-import tldextract
 from twisted.internet.error import DNSLookupError, TimeoutError
 from twisted.web._newclient import ResponseNeverReceived
-from scrapy.exceptions import IgnoreRequest
 
 from items import TextItem
 from itemadapter import ItemAdapter
