@@ -40,19 +40,13 @@ Before you begin, ensure you have met the following requirements:
 
 To install the necessary dependencies for this project, you need to install the packages listed in `requirements.txt`. Follow these steps:
 
-1. Clone the repository:
-
-    ```sh
-    git clone 
-    ```
-
-2. Navigate to the project directory:
+1. Navigate to the project directory:
 
     ```sh
     cd IR
     ```
 
-3. Install the dependencies:
+2. Install the dependencies:
 
     ```sh
     pip install -r requirements.txt
