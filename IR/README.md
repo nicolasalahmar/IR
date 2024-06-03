@@ -11,16 +11,16 @@ This project focuses on preprocessing textual data for an information retrieval 
 ## Offline Architecture
 
 It is comprised of 3 main packages:
-1- Helper: static functions that aid in data (retrieval, fetching, ...) from SQLite database
-2- Manual: scripts to process data (import to database, multiprocessing support, preprocessing functions tests to find most efficient packages and tools)
-3- Pipeline: full IR system (indexing, preprocessing, matching and ranking, evaluation) in addition to package for Crawling and index Clustering 
+1. Helper: static functions that aid in data (retrieval, fetching, ...) from SQLite database
+2. Manual: scripts to process data (import to database, multiprocessing support, preprocessing functions tests to find most efficient packages and tools)
+3. Pipeline: full IR system (indexing, preprocessing, matching and ranking, evaluation) in addition to package for Crawling and index Clustering 
 
 ## Pipeline Components
 
-1- Index Package: Custom Wrapper class for tfidfvectorizer with suitable index related operations (load, create, search, initialize query)
-2- Matching and Ranking Package: functions to find similarities between two different vectors, get top documents from Corpus based on a similarity threshold
-3- Evaluation Package: functions to create run files, evaluate run files based on predefined qrels files
-4- Preprocessor Package
+1. Index Package: Custom Wrapper class for tfidfvectorizer with suitable index related operations (load, create, search, initialize query)
+2. Matching and Ranking Package: functions to find similarities between two different vectors, get top documents from Corpus based on a similarity threshold
+3. Evaluation Package: functions to create run files, evaluate run files based on predefined qrels files
+4. Preprocessor Package
 
 ## Preprocessing Operations
 
