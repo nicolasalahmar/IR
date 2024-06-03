@@ -117,6 +117,17 @@ class Lower_Stopwords_Countries_Numerize_Stem_Ordinal_Punc_Processed_Corpus(Mode
     class Meta:
         database = db
 
+class countries_dates_ord_num_stop_punct_stem_Processed_Corpus(Model):
+    id = CharField(primary_key=True)
+    text = CharField(unique=True)
+
+    @staticmethod
+    def set_db(db):
+        countries_dates_ord_num_stop_punct_stem_Processed_Corpus._meta.database = db
+
+    class Meta:
+        database = db
+
 
 class Lower_Stopwords_HTML_Processed_Corpus(Model):
     id = CharField(primary_key=True)

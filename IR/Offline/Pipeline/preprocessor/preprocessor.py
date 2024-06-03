@@ -11,32 +11,32 @@ from Offline.Pipeline.preprocessor.punctuation import remove_punctuation
 from Offline.Pipeline.preprocessor.remove_long_words import remove_long_words
 from Offline.Pipeline.preprocessor.stemmer import stem
 from Offline.Pipeline.preprocessor.stopwords import remove_stopwords
-from Offline.Pipeline.preprocessor.tokenize import to_tokens, whitespace_tokenize, to_sentences
+from Offline.Pipeline.preprocessor.tokenize import to_tokens, whitespace_tokenize
 
 
 def preprocessor(text):
     return pipe(text,
 
-                #clean_html,
+                clean_html,
 
-                # replace_countries,
-                # replace_dates,
-                # numerize_text,
+                replace_countries,
+                replace_dates,
+                numerize_text,
 
 
-                # lower,
+                lower,
 
-                # whitespace_tokenize,
-                # remove_stopwords,
-                # ' '.join,
+                whitespace_tokenize,
+                remove_stopwords,
+                ' '.join,
 
-                # to_tokens,
-                # replace_ordinal_numbers,
-                # remove_punctuation,
-                # remove_long_words,
-                # stem,
-                # remove_empty_tokens,
-                # ' '.join,
+                to_tokens,
+                replace_ordinal_numbers,
+                remove_punctuation,
+                remove_long_words,
+                stem,
+                remove_empty_tokens,
+                ' '.join,
                 )
 
 
