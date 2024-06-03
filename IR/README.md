@@ -3,6 +3,24 @@
 ## Overview
 
 This project focuses on preprocessing textual data for an information retrieval system. The preprocessing operations are designed to clean and standardize the text, making it easier for retrieval, especially when working with datasets that have a large number of records.
+- The project consists of two main projects:
+  - ir-front: React.js frontend project (simple interface for search)
+  - IR: a DJANGO backend application to handle search requests through an API
+  - Offline: a component related to corpus data preprocessing, matching, ranking, evaluation, ...
+
+## Offline Architecture
+
+It is comprised of 3 main packages:
+1- Helper: static functions that aid in data (retrieval, fetching, ...) from SQLite database
+2- Manual: scripts to process data (import to database, multiprocessing support, preprocessing functions tests to find most efficient packages and tools)
+3- Pipeline: full IR system (indexing, preprocessing, matching and ranking, evaluation) in addition to package for Crawling and index Clustering 
+
+## Pipeline Components
+
+1- Index Package: Custom Wrapper class for tfidfvectorizer with suitable index related operations (load, create, search, initialize query)
+2- Matching and Ranking Package: functions to find similarities between two different vectors, get top documents from Corpus based on a similarity threshold
+3- Evaluation Package: functions to create run files, evaluate run files based on predefined qrels files
+4- Preprocessor Package
 
 ## Preprocessing Operations
 
@@ -28,6 +46,7 @@ This project includes methods to find the optimal number of clusters and visuali
 ### Crawler
 
 The crawler component of the project uses Scrapy and Scrapy-Redis to collect text data from websites. The crawler is designed to handle failures couple of failures and extract meaningful text data from the crawled pages.
+We used Redis in order to implement distributed crawling from different nodes at the same time where Redis can synchronize the different nodes
 
 ## Prerequisites
 
@@ -86,6 +105,5 @@ threshold=0.0
 ```
 ## Running The Project
 
-To preprocess the data, navigate to the `preprocessor` folder and run the `preprocessor.py` file.
-
-To evaluate and create clusters, run `main.py` located in the root directory.
+To preprocess the data, navigate to the `preprocessor` folder and run the `process_records.py` script in order to insert the processed data into a new table in the same dataset database.
+To create indexes, load indexes, evaluate, create clusters, search for a specific term please refer to `main.ipynb` and run the desired cells. 
